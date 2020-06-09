@@ -1,0 +1,29 @@
+{
+  "name": "y-vue",
+  "version": "1.0.0",
+  "description": "my vue",
+  "main": "vue.js",
+  "scripts": {
+    "build:dev": "rollup -c",
+    "serve": "cross-env ENV=development rollup -c -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YuArtian/y-vue.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YuArtian/y-vue/issues"
+  },
+  "homepage": "https://github.com/YuArtian/y-vue#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "cross-env": "^7.0.2",
+    "rollup": "^2.15.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-serve": "^1.0.1"
+  }
+}

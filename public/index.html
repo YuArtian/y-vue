@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Y Vue</title>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+</head>
+<body>
+  <div id="app"></div>
+  <script src="/dist/umd/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data(){
+        return {
+          name: 'Yu',
+          obj: {
+            a: 'a',
+            b: {
+              bb: 'bb'
+            },
+          },
+          arr: [1,2,3,{a: 'a'}]
+        }
+      },
+      computed: {},
+      watch: {},
+    })
+    // vm._data.name = 'new Name'
+    // vm._data.obj.a = 'new a'
+    // vm._data.obj.b = {
+    //   cc: 'cc'
+    // }
+    vm._data.arr.push({new: 'new'})
+    console.log('data',vm._data)
+  </script>
+</body>
+</html>
