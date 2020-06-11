@@ -1,5 +1,6 @@
 import { initState } from './state'
 import { compileToFunction } from './compiler/index'
+import { mountComponent } from './lifeCycle'
 
 export function initMixin(Vue){
   //初始化
@@ -27,12 +28,11 @@ export function initMixin(Vue){
       if (!template && el) {
         template = el.outerHTML
       }
-      console.log('template-------',template)
       //生成render方法
       const render = compileToFunction(template)
       options.render = render
     }
-
-
+    //生成了render函数之后，开始挂载组件
+    mountComponent(vm, el)
   }
 }
