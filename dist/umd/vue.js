@@ -374,16 +374,13 @@
           dep.depend();
 
           if (childOb) {
-            console.log('childOb', childOb); //收集对象 和 数组 的依赖
-
+            //收集对象 和 数组 的依赖
             childOb.dep.depend();
 
             if (Array.isArray(value)) {
               dependArray(value);
             }
           }
-
-          console.log('dep.subs', dep.subs);
         }
 
         return value;
@@ -690,6 +687,54 @@
     return renderFn;
   }
 
+  //nextTick
+  var callbacks = []; // [flushSchedularQueue,userNextTick]
+
+  var waiting = false;
+
+  function flushCallback() {
+    callbacks.forEach(function (cb) {
+      return cb();
+    });
+    waiting = false;
+    callbacks = [];
+  }
+
+  function nextTick(cb) {
+    // 多次调用nextTick 如果没有刷新的时候 就先把他放到数组中,
+    // 刷新后 更改waiting
+    callbacks.push(cb);
+
+    if (waiting === false) {
+      setTimeout(flushCallback, 0);
+      waiting = true;
+    }
+  }
+
+  /* 更新队列 以及 watcher 去重 */
+
+  var queue = [];
+  var has = {};
+
+  function flushSchedularQueue() {
+    queue.forEach(function (watcher) {
+      return watcher.run();
+    });
+    queue = [];
+    has = {};
+  }
+
+  function queueWatcher(watcher) {
+    var id = watcher.id;
+
+    if (has[id] == null) {
+      queue.push(watcher);
+      has[id] = true; //Vue.nextTick
+
+      nextTick(flushSchedularQueue);
+    }
+  }
+
   var id$1 = 0;
 
   var Watcher = /*#__PURE__*/function () {
@@ -722,7 +767,9 @@
     }, {
       key: "update",
       value: function update() {
-        this.get();
+        //this.get()
+        //异步更新 加入更新队列
+        queueWatcher(this);
       } //添加dep
 
     }, {
@@ -736,6 +783,12 @@
 
           dep.addSub(this);
         }
+      } //异步更新
+
+    }, {
+      key: "run",
+      value: function run() {
+        this.get();
       }
     }]);
 
@@ -818,6 +871,8 @@
 
     var updateComponent = function updateComponent() {
       //返回虚拟dom
+      console.log('update');
+
       vm._update(vm._render());
     }; //渲染 watcher
 
@@ -877,7 +932,10 @@
 
 
       mountComponent(vm, el);
-    };
+    }; //用户调用的nextTick
+
+
+    Vue.prototype.$nextTick = nextTick;
   }
 
   function createElement(tag) {

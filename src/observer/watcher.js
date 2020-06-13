@@ -1,4 +1,5 @@
 import { pushTarget, popTarget } from './dep'
+import { queueWatcher } from './schedular'
 
 let id = 0
 class Watcher {
@@ -24,7 +25,9 @@ class Watcher {
   }
   //执行更新
   update(){
-    this.get()
+    //this.get()
+    //异步更新 加入更新队列
+    queueWatcher(this)
   }
   //添加dep
   addDep(dep){
@@ -36,6 +39,10 @@ class Watcher {
       //在 Dep 中添加当前 watcher
       dep.addSub(this)
     }
+  }
+  //异步更新
+  run(){
+    this.get()
   }
 }
 

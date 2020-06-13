@@ -1,2 +1,5 @@
 # y-vue
-my vue
+```
+npm i
+npm run serve
+```

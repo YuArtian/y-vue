@@ -85,4 +85,3 @@ export function mergeOptions(parent, child){
   }
   return options
 }
-

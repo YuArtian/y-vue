@@ -43,14 +43,12 @@ function defineReactive(data, key, value){
       if (Dep.target) {
         dep.depend()
         if (childOb) {
-          console.log('childOb', childOb)
           //收集对象 和 数组 的依赖
           childOb.dep.depend()
           if (Array.isArray(value)) {
             dependArray(value)
           }
         }
-        console.log('dep.subs',dep.subs)
       }
       return value
     },

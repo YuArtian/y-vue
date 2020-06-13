@@ -18,6 +18,7 @@ export function mountComponent(vm, el){
   //渲染和更新都会调用 updateComponent
   let updateComponent = () => {
     //返回虚拟dom
+    console.log('update')
     vm._update(vm._render())
   }
   //渲染 watcher

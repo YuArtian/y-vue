@@ -44,9 +44,15 @@
     setTimeout(() => {
       // vm.age = 1000
       // vm.arr.push(4,5,6)
-      console.log('vm',vm)
+      // console.log('vm',vm)
+      vm.obj.text = '!'
+      vm.obj.text = '!!'
       vm.obj.text = '!!!'
-
+      vm.obj.text = '!!!!'
+      console.log('vm ',vm.$el.innerHTML)
+      vm.$nextTick(() => {
+        console.log('vm ',vm.$el.innerHTML)
+      })
       // vm._update(vm._render()) 手动更新视图
       //希望自动执行 渲染watcher
 
