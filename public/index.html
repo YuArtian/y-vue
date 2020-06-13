@@ -3,19 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Y Vue</title>
+  <title>Y-Vue</title>
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
 </head>
 <body>
   <div id="app">
-    hello
+    <my-component></my-component>
     <p>{{name}}</p>
-    <span>{{age}}</span>
-    <span>{{arr}}</span>
-    <div>{{obj}}</div>
   </div>
   <script src="/dist/umd/vue.js"></script>
-  <script>
+  <!-- <script>
     let vm = new Vue({
       el: '#app',
       data(){
@@ -55,8 +52,32 @@
       })
       // vm._update(vm._render()) 手动更新视图
       //希望自动执行 渲染watcher
-
     }, 1000)
+  </script> -->
+
+  <script>
+    //全局组件
+    Vue.component('my-component', {
+      template: '<div>hello</div>'
+    })
+
+    let vm = new Vue({
+      el: '#app',
+      data(){
+        return {
+          name: 'Yu'
+        }
+      },
+      //局部组件
+      components: {
+        'my-component': {
+          template: '<div>hello111111</div>'
+        }
+      }
+    })
+
+    console.log('vm',vm)
   </script>
+
 </body>
 </html>
