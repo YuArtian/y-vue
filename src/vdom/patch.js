@@ -1,6 +1,4 @@
 export function patch(oldVnode, vnode){
-  console.log('oldVnode',oldVnode)
-  console.log('vnode',vnode)
   //如果是真实元素 就是首次渲染
   const isRealElement = oldVnode.nodeType
   if (isRealElement) {
@@ -11,10 +9,9 @@ export function patch(oldVnode, vnode){
     //插入元素，再删除之前的
     parentElm.insertBefore(el, oldElm.nextSibling)
     parentElm.removeChild(oldElm)
+    return el
   }
-
   //递归创建真实节点
-
 }
 function createElm(vnode){ // 根据虚拟节点创建真实的节点
   let {tag,children,key,data,text} = vnode;

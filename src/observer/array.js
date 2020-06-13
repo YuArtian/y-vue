@@ -31,6 +31,9 @@ methods.forEach(method => {
       //继续观测新增的属性
       ob.observeArray(inserted)
     }
+    //通知视图更新
+    console.log('ob',ob)
+    ob.dep.notify();
     return result
   }
 })
